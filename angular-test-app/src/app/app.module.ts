@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { SubmittedDataComponent } from './submitted-data/submitted-data.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ProfileFormComponent } from './profile-form/profile-form.component';
+import { ReactiveFormsModule , FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { ProfileFormComponent } from './profile-form/profile-form.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
