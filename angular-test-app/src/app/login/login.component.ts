@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   }
 
-  setLoggedInFlag(value:boolean): void {
+  setLoggedInFlag(value: boolean): void {
     this.authService.setLoggedIn(value);
   }
 
