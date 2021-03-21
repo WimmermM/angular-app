@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  endpoint_one: `https://postman-echo.com/get?foo=bar1`,
+  endpoint_two: `https://postman-echo.com/get?foo=bar2`,
+  endpoint_three: `https://postman-echo.com/get?foo=bar3`,
+  post_endpoint: `https://postman-echo.com/post`
 };
 
 /*

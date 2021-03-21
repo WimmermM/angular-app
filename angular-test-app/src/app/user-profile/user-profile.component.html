@@ -1,1 +1,3 @@
-<p>user-profile works!</p>
+<h1 *ngIf="done">Loaded</h1>
+<app-submitted-data></app-submitted-data>
+<app-profile-form (submittedEvent)="eventListener($event)"></app-profile-form>

@@ -1,1 +1,18 @@
-<p>profile-form works!</p>
+<form [formGroup]="profileForm" novalidate (submit)="onSubmit()">
+  <div class="form-group">
+  <label for="name">Name</label>
+  <input id='name' type="text" class="form-control" formControlName="name"/>
+</div>
+<div class="form-group">
+  <label for="email">Email</label>
+  <input id='email' type="text" class="form-control" formControlName="email">
+</div>
+  <div class="form-group">
+    <label for="phone_number">Phone number</label>
+    <input id="phone_number" type="number" class="form-control">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="reset" (clic)="changeData()" class="btn">Reset</button>
+</form>
+<div *ngIf="submited">SUCCESS</div>
+

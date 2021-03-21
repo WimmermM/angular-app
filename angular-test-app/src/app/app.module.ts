@@ -9,6 +9,7 @@ import { SubmittedDataComponent } from './submitted-data/submitted-data.componen
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ProfileFormComponent } from './profile-form/profile-form.component';
 import { ReactiveFormsModule , FormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ReactiveFormsModule , FormsModule } from '@angular/forms';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
