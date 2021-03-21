@@ -28,9 +28,8 @@ export class ProfileFormComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(this.f);
     this.profileForm.get('name').valueChanges.subscribe(data => {
-      console.log(data, 'tttttttt');
+      console.log(data, 'data');
     });
     this.data.currentData.subscribe(data => this.snedForm = data);
   }
@@ -66,8 +65,6 @@ export class ProfileFormComponent implements OnInit {
 
   sendSubmitStatus() {
     this.submittedEvent.emit(this.submitStatus);
-    console.log(this.submittedEvent, 'dasdasdd');
-    console.log(this.submitStatus);
   }
 
   changeData() {

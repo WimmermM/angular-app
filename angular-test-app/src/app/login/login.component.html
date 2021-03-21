@@ -1,5 +1,11 @@
-<form>
-  <input type="text" placeholder="Username">
-  <input type="text" placeholder="password">
-  <input type="submit" value="Submit" (click)="setLoggedInFlag(true)" [routerLink]="['']">
+<form [formGroup]="loginForm" (submit)="onSubmit()">
+  <div class="form-group">
+    <label for="username">Username</label>
+  <input type="text" name="username" formControlName="username"  class="form-control">
+</div>
+  <div class="form-group">
+    <label for="password">Password</label>
+  <input type="password" name="password" formControlName="password"  class="form-control">
+</div>
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
