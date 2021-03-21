@@ -11,16 +11,17 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 export class ProfileFormComponent implements OnInit {
 
   profileForm: FormGroup;
-  submited = false;
+  submitStatus = false;
+  snedForm: {name: string, email: string, phone: string};
 
   @Output()
   submittedEvent: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private formBuilder: FormBuilder, private data: MyDataService) {
     this.profileForm = this.formBuilder.group({
-      name: ['nultestl', Validators.required],
-      email: ['test', Validators.required],
-      phone: ''
+      name: [null, Validators.required],
+      email: [null, Validators.required],
+      phone: null
     });
 
   }
@@ -31,6 +32,7 @@ export class ProfileFormComponent implements OnInit {
     this.profileForm.get('name').valueChanges.subscribe(data => {
       console.log(data, 'tttttttt');
     });
+    this.data.currentData.subscribe(data => this.snedForm = data);
   }
 
 
@@ -39,15 +41,15 @@ export class ProfileFormComponent implements OnInit {
   onSubmit() {
     console.log(this.profileForm);
     if (this.profileForm.valid) {
-      this.submited = true;
+      this.submitStatus = true;
       console.log('form submitted');
+      this.changeData();
     } else {
       this.validateAllFormFields(this.profileForm);
-      this.submited = false;
+      this.submitStatus = false;
     }
     this.sendSubmitStatus();
     console.log(this.profileForm.value, 'dadasdasdsadasdasd');
-    this.changeData();
   }
 
   validateAllFormFields(formGroup: FormGroup) {
@@ -63,13 +65,22 @@ export class ProfileFormComponent implements OnInit {
   }
 
   sendSubmitStatus() {
-    this.submittedEvent.emit(this.submited);
+    this.submittedEvent.emit(this.submitStatus);
     console.log(this.submittedEvent, 'dasdasdd');
-    console.log(this.submited);
+    console.log(this.submitStatus);
   }
 
   changeData() {
     this.data.changeData(this.profileForm.value);
+    console.log('volam ChangeData');
+    console.log(this.snedForm, 'send form');
+  }
+
+  onReset() {
+    this.profileForm.reset();
+    this.submitStatus = false;
+    this.sendSubmitStatus();
+    this.data.changeData(null);
   }
 
 }

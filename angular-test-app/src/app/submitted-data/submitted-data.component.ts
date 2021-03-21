@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MyDataService } from '../services/my-data.service';
 
 @Component({
@@ -9,20 +9,14 @@ import { MyDataService } from '../services/my-data.service';
 })
 export class SubmittedDataComponent implements OnInit {
 
-  testGrp: FormGroup;
-  name: string;
-  email: string;
-  phone: number;
 
-  constructor(private data: MyDataService) {
-    console.log('sdadasd mifdingodfn ndifn');
+  submitedForm: {name: string, email: string, phone: string};
 
-   }
+
+  constructor(private data: MyDataService) {}
 
   ngOnInit(): void {
-    console.log(this.data.currentData , 'data v submitu');
-    console.log('sdadasd mifdingodfn ndifn');
-
+    this.data.currentData.subscribe(data => this.submitedForm = data);
   }
 
 }

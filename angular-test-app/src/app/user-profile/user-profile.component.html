@@ -1,3 +1,7 @@
-<h1 *ngIf="done">Loaded</h1>
+<h1>{{done}}</h1>
+<div>
 <app-submitted-data></app-submitted-data>
-<app-profile-form (submittedEvent)="eventListener($event)"></app-profile-form>
+</div>
+<div [ngClass]="formSubmited ? 'green-color' : 'white-color'">
+  <app-profile-form (submittedEvent)="eventListener($event)" class="test-color"></app-profile-form>
+</div>

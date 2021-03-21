@@ -1,19 +1,7 @@
+import { concatMap, tap } from 'rxjs/operators';
+import { MyHttpServiceService } from './../services/my-http-service.service';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { forkJoin, Observable } from 'rxjs';
-import { environment } from './../../environments/environment';
-
-const endpoint1 = environment.endpoint_one;
-const endpoint2 = environment.endpoint_two;
-const endpoint3 = environment.endpoint_three;
-
-const header = {
-  headers: {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-    'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
-  }
-};
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-profile',
@@ -26,24 +14,28 @@ export class UserProfileComponent implements OnInit {
 
   done = 'Loading';
   formSubmited = false;
+  response: any;
 
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private httpService: MyHttpServiceService) { }
 
   ngOnInit(): void {
-    forkJoin([this.http.get(endpoint1, header),
-    this.http.get(endpoint2 , header),
-  this.http.get(endpoint3, header)]).subscribe(response => {
+    this.httpService.getFoo().pipe(
+      tap(response => {console.log('1 endpoint done'); }),
+      concatMap(response => this.httpService.getFoo2()), tap(response => {console.log('2 endpoint done'); }),
+      concatMap(response => this.httpService.getFoo3()), tap(response => {console.log('3 endpoint done'); })
+    ).subscribe(response => {
       this.done = 'Loaded';
-  }, err => {
-    console.log(err, 'Error');
-    this.done = 'Error' + err.status;
-  });
+    }, error => {
+      console.log(error, 'Error');
+      this.done = 'Error';
+      });
   }
 
   eventListener($event) {
     this.formSubmited = $event;
+
   }
 
 }

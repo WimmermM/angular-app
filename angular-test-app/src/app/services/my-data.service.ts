@@ -1,3 +1,4 @@
+import { FormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
@@ -7,12 +8,12 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 })
 export class MyDataService {
 
-  private dataSource = new BehaviorSubject<any>(null);
+  private dataSource = new BehaviorSubject<{name: string, email: string, phone: string}>(null);
   currentData = this.dataSource.asObservable();
 
   constructor() { }
 
-  changeData(data: any){
+  changeData(data: {name: string, email: string, phone: string}){
     this.dataSource.next(data);
   }
 }

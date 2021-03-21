@@ -3,3 +3,11 @@
 .form-control.ng-invalid.ng-touched {
   border: 2px solid red;
 }
+
+.white-color {
+  background-color: white;
+}
+
+.green-color {
+  background-color: green;
+}
