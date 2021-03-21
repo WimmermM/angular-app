@@ -14,6 +14,7 @@ const httpOptions = {
   })
 };
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -47,13 +48,14 @@ export class MyHttpServiceService {
 
   }
 
-  getFoo3(): Observable<any>{
+  getFoo3(): Observable<any> {
     const header = new HttpHeaders({
       'Content-Type': 'application/json; charset=utf-8',
       'Access-Control-Allow-Origin': '*'
     });
     console.log('volam 3');
-    return this.httpClient.get<any>('https://postman-echo.com/get?foo=bar3', {headers: header}).pipe(
+    return this.httpClient.get<any>('https://postman-echo.com/get?foo=bar3', {headers: header})
+    .pipe(
       catchError(this.errorHandler)
     );
 
@@ -62,6 +64,13 @@ export class MyHttpServiceService {
   errorHandler(error: HttpErrorResponse) {
     console.log(error);
     return throwError(error);
+  }
+
+  sendPost(data: any): Observable<any> {
+    return this.httpClient.post(postEndpoint, data , httpOptions)
+    .pipe(
+      catchError(this.errorHandler)
+    );
   }
 
 }

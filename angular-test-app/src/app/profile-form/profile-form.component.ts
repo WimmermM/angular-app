@@ -1,3 +1,4 @@
+import { MyHttpServiceService } from './../services/my-http-service.service';
 import { MyDataService } from './../services/my-data.service';
 import { Component, OnInit, EventEmitter , Output} from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
@@ -17,7 +18,7 @@ export class ProfileFormComponent implements OnInit {
   @Output()
   submittedEvent: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private formBuilder: FormBuilder, private data: MyDataService) {
+  constructor(private formBuilder: FormBuilder, private data: MyDataService, private httpService: MyHttpServiceService) {
     this.profileForm = this.formBuilder.group({
       name: [null, Validators.required],
       email: [null, Validators.required],
@@ -28,9 +29,6 @@ export class ProfileFormComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.profileForm.get('name').valueChanges.subscribe(data => {
-      console.log(data, 'data');
-    });
     this.data.currentData.subscribe(data => this.snedForm = data);
   }
 
@@ -41,6 +39,7 @@ export class ProfileFormComponent implements OnInit {
     console.log(this.profileForm);
     if (this.profileForm.valid) {
       this.submitStatus = true;
+      this.httpService.sendPost(this.profileForm.value).subscribe(value => console.log('post send'));
       console.log('form submitted');
       this.changeData();
     } else {
@@ -48,7 +47,7 @@ export class ProfileFormComponent implements OnInit {
       this.submitStatus = false;
     }
     this.sendSubmitStatus();
-    console.log(this.profileForm.value, 'dadasdasdsadasdasd');
+    console.log(this.profileForm.value, 'profileForm data');
   }
 
   validateAllFormFields(formGroup: FormGroup) {
